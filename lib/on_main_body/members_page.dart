@@ -27,20 +27,33 @@ class _MembersPageState extends State<MembersPage> {
             const SizedBox(height: 20.0),
             const Text('Confirm new member'),
             SizedBox(
-              height: 300,
-              width: 700,
+              height: 120,
+              width: 900,
               child: ListView.builder(
                   itemCount: membersController.members.length,
                   itemBuilder: (contex, index) {
                     final Members member = membersController.members[index];
                     return ListTile(
-                      leading: const Icon(Icons.person),
-                      title: Text(member.nama),
-                      subtitle: Text("${member.noTelepon}"),
-                      trailing: Text(member.alamat),
-                    );
+                        leading: const Icon(Icons.person),
+                        title: Wrap(
+                          spacing: 200.0,
+                          children: [
+                            Text(member.nama),
+                            Text(member.jabatan),
+                            Text(member.alamat),
+                          ],
+                        ),
+                        subtitle: Text("${member.noTelepon}"),
+                        trailing: const Wrap(
+                          spacing: 12.0,
+                          children: [
+                            Icon(Icons.check_circle_outline),
+                            Icon(Icons.remove_circle_outline),
+                          ],
+                        ));
                   }),
             ),
+            const Divider(),
           ],
         ),
       ),
