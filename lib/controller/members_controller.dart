@@ -28,4 +28,8 @@ class MembersController {
     );
     members.add(member);
   }
+
+  void deleteMember(int index) {
+    members.removeAt(index);
+  }
 }

@@ -30,70 +30,79 @@ class _MembersPageState extends State<MembersPage> {
             const Text('Members', style: TextStyle(fontSize: 30.0)),
             const SizedBox(height: 20.0),
             const Text('Confirm new member'),
-            SizedBox(
-              height: 120,
-              width: 900,
-              child: ListView.builder(
-                  itemCount: membersController.members.length,
-                  itemBuilder: (contex, index) {
-                    final Members member = membersController.members[index];
-                    return MyListTile(
-                      title: [
-                        Text(member.nama),
-                        Text(member.jabatan),
-                        Text(member.alamat),
-                      ],
-                      subtitle: Text("${member.noTelepon}"),
-                      trailing: [
-                        IconButton(
-                          icon: const Icon(Icons.check_circle_outline),
-                          onPressed: () {
-                            setState(() {
-                              activeMembersController.addActiveMember(
-                                  nama: member.nama,
-                                  noTelepon: member.noTelepon,
-                                  jabatan: member.jabatan,
-                                  alamat: member.alamat);
-                            });
-                          },
-                        ),
-                        IconButton(
-                          icon: const Icon(Icons.remove_circle_outline),
-                          onPressed: () {},
-                        ),
-                      ],
-                    );
-                  }),
-            ),
+            newMembers(),
             const Divider(),
             const Text('Active member'),
             const SizedBox(height: 20.0),
-            SizedBox(
-              height: 300,
-              width: 900,
-              child: ListView.builder(
-                  itemCount: activeMembersController.activeMembers.length,
-                  itemBuilder: (contex, index) {
-                    final ActiveMembers activeMember =
-                        activeMembersController.activeMembers[index];
-                    return MyListTile(
-                      title: [
-                        Text(activeMember.nama),
-                        Text(activeMember.jabatan),
-                        Text(activeMember.alamat),
-                      ],
-                      subtitle: Text("${activeMember.noTelepon}"),
-                      trailing: const [
-                        Icon(Icons.star),
-                        Icon(Icons.star),
-                        Icon(Icons.star),
-                      ],
-                    );
-                  }),
-            ),
+            activeMembers(),
           ],
         ),
       ),
+    );
+  }
+
+  SizedBox activeMembers() {
+    return SizedBox(
+      height: 300,
+      width: 900,
+      child: ListView.builder(
+          itemCount: activeMembersController.activeMembers.length,
+          itemBuilder: (contex, index) {
+            final ActiveMembers activeMember =
+                activeMembersController.activeMembers[index];
+            return MyListTile(
+              title: [
+                Text(activeMember.nama),
+                Text(activeMember.jabatan),
+                Text(activeMember.alamat),
+              ],
+              subtitle: Text("${activeMember.noTelepon}"),
+              trailing: const [
+                Icon(Icons.star),
+                Icon(Icons.star),
+                Icon(Icons.star),
+              ],
+            );
+          }),
+    );
+  }
+
+  SizedBox newMembers() {
+    return SizedBox(
+      height: 120,
+      width: 900,
+      child: ListView.builder(
+          itemCount: membersController.members.length,
+          itemBuilder: (contex, index) {
+            final Members member = membersController.members[index];
+            return MyListTile(
+              title: [
+                Text(member.nama),
+                Text(member.jabatan),
+                Text(member.alamat),
+              ],
+              subtitle: Text("${member.noTelepon}"),
+              trailing: [
+                IconButton(
+                  icon: const Icon(Icons.check_circle_outline),
+                  onPressed: () {
+                    setState(() {
+                      activeMembersController.addActiveMember(
+                          nama: member.nama,
+                          noTelepon: member.noTelepon,
+                          jabatan: member.jabatan,
+                          alamat: member.alamat);
+                      membersController.deleteMember(index);
+                    });
+                  },
+                ),
+                IconButton(
+                  icon: const Icon(Icons.remove_circle_outline),
+                  onPressed: () {},
+                ),
+              ],
+            );
+          }),
     );
   }
 }
