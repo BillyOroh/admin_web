@@ -1,3 +1,5 @@
+import 'dart:js_interop';
+
 import 'package:admin_web/models/members_model.dart';
 import 'package:flutter/material.dart';
 import 'package:admin_web/controller/members_controller.dart';
@@ -18,25 +20,49 @@ class _MembersPageState extends State<MembersPage> {
   final ActiveMembersController activeMembersController =
       ActiveMembersController();
 
+  bool isEmpty = true;
+
   @override
   Widget build(BuildContext context) {
+    if (membersController.members.isEmpty) {
+      setState(() {
+        isEmpty = true;
+      });
+    }
+    if (membersController.members.isNotEmpty) {
+      setState(() {
+        isEmpty = false;
+      });
+    }
+
     return Expanded(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 40.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: 30.0),
-            const Text('Members', style: TextStyle(fontSize: 30.0)),
-            const SizedBox(height: 20.0),
-            const Text('Confirm new member'),
-            newMembers(),
-            const Divider(),
-            const Text('Active member'),
-            const SizedBox(height: 20.0),
-            activeMembers(),
-          ],
-        ),
+        child: isEmpty
+            ? Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 30.0),
+                  const Text('Members', style: TextStyle(fontSize: 30.0)),
+                  const SizedBox(height: 20.0),
+                  const Text('Active member:'),
+                  activeMembers(),
+                ],
+              )
+            : Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 30.0),
+                  const Text('Members', style: TextStyle(fontSize: 30.0)),
+                  const SizedBox(height: 20.0),
+                  const Text('Confirm New Member:'),
+                  newMembers(),
+                  const Divider(),
+                  const Text('Active Members:'),
+                  const SizedBox(height: 20.0),
+                  activeMembers(),
+                ],
+              ),
       ),
     );
   }
@@ -98,7 +124,11 @@ class _MembersPageState extends State<MembersPage> {
                 ),
                 IconButton(
                   icon: const Icon(Icons.remove_circle_outline),
-                  onPressed: () {},
+                  onPressed: () {
+                    setState(() {
+                      membersController.deleteMember(index);
+                    });
+                  },
                 ),
               ],
             );
