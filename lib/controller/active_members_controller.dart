@@ -17,4 +17,8 @@ class ActiveMembersController {
     );
     activeMembers.add(activeMember);
   }
+
+  void deleteActiveMember(int index) {
+    activeMembers.removeAt(index);
+  }
 }
