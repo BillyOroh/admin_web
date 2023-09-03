@@ -1,5 +1,3 @@
-import 'dart:js_interop';
-
 import 'package:admin_web/models/members_model.dart';
 import 'package:flutter/material.dart';
 import 'package:admin_web/controller/members_controller.dart';
@@ -57,7 +55,6 @@ class _MembersPageState extends State<MembersPage> {
                   const SizedBox(height: 20.0),
                   const Text('Confirm New Member:'),
                   newMembers(),
-                  const Divider(),
                   const Text('Active Members:'),
                   const SizedBox(height: 20.0),
                   activeMembers(),
@@ -95,7 +92,7 @@ class _MembersPageState extends State<MembersPage> {
 
   SizedBox newMembers() {
     return SizedBox(
-      height: 120,
+      height: 160,
       width: 900,
       child: ListView.builder(
           itemCount: membersController.members.length,
@@ -151,17 +148,22 @@ class MyListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      leading: const Icon(Icons.person),
-      title: Wrap(
-        spacing: 100.0,
-        children: title,
-      ),
-      subtitle: subtitle,
-      trailing: Wrap(
-        spacing: 12.0,
-        children: trailing,
-      ),
+    return Column(
+      children: [
+        ListTile(
+          leading: const Icon(Icons.person),
+          title: Wrap(
+            spacing: 100.0,
+            children: title,
+          ),
+          subtitle: subtitle,
+          trailing: Wrap(
+            spacing: 12.0,
+            children: trailing,
+          ),
+        ),
+        Divider(),
+      ],
     );
   }
 }
