@@ -1,6 +1,6 @@
 class Members {
   String nama;
-  double noTelepon;
+  int noTelepon;
   String jabatan;
   String alamat;
   Members({

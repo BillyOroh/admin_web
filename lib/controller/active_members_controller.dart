@@ -5,7 +5,7 @@ class ActiveMembersController {
 
   void addActiveMember({
     required String nama,
-    required double noTelepon,
+    required int noTelepon,
     required String jabatan,
     required String alamat,
   }) {

@@ -16,7 +16,7 @@ class MembersController {
 
   void addMember({
     required String nama,
-    required double noTelepon,
+    required int noTelepon,
     required String jabatan,
     required String alamat,
   }) {
